@@ -215,7 +215,7 @@ var Game = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.state = {
-      board: new _minesweeper_js__WEBPACK_IMPORTED_MODULE_1__["Board"](9, 5)
+      board: new _minesweeper_js__WEBPACK_IMPORTED_MODULE_1__["Board"](9, 10)
     };
     _this.updateGame = _this.updateGame.bind(_assertThisInitialized(_this));
     _this.restartGame = _this.restartGame.bind(_assertThisInitialized(_this));
