@@ -4,11 +4,50 @@
     align-items: center;
 }
 
-.tile {
+.notExplored {
+    text-align: center;
     border: 1px inset white;
     width: 30px;
     height: 30px;
     background-color: #d3d3d3;
     /* border-style: inset; */
     /* border-style: outset; */
+}
+
+.explored {
+    text-align: center;
+    border: 1px inset white;
+    width: 30px;
+    height: 30px;
+    background-color: gray;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.modal {
+    z-index: 1;
+    bottom: 200px;
+    width: 200px;
+    border-radius: 5%;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    border: solid 1px black;
+    background-color: cadetblue;
+}
+
+#root {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }

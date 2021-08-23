@@ -218,19 +218,57 @@ var Game = /*#__PURE__*/function (_React$Component) {
       board: new _minesweeper_js__WEBPACK_IMPORTED_MODULE_1__["Board"](9, 5)
     };
     _this.updateGame = _this.updateGame.bind(_assertThisInitialized(_this));
+    _this.restartGame = _this.restartGame.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(Game, [{
     key: "updateGame",
-    value: function updateGame() {}
+    value: function updateGame(tile, flagged) {
+      if (flagged) {
+        tile.toggleFlag();
+      } else {
+        tile.explore();
+      }
+
+      this.setState({
+        board: this.state.board
+      });
+    }
+  }, {
+    key: "restartGame",
+    value: function restartGame() {
+      this.setState({
+        board: new _minesweeper_js__WEBPACK_IMPORTED_MODULE_1__["Board"](9, 5)
+      });
+    }
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Board_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        board: this.state.board,
-        updateGame: this.updateGame
-      });
+      if (this.state.board.won()) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Board_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          board: this.state.board,
+          updateGame: this.updateGame
+        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "modal"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "You won!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          onClick: this.restartGame
+        }, " Play Again ")));
+      } else if (this.state.board.lost()) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Board_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          board: this.state.board,
+          updateGame: this.updateGame
+        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "modal"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "You Lost!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          onClick: this.restartGame
+        }, " Play Again ")));
+      } else {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Board_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          board: this.state.board,
+          updateGame: this.updateGame
+        });
+      }
     }
   }]);
 
@@ -294,17 +332,18 @@ var Tile = /*#__PURE__*/function (_React$Component) {
   _createClass(Tile, [{
     key: "handleClick",
     value: function handleClick(e) {
-      e.preventDefault();
-      this.props.updateGame();
+      var flagged = e.altKey;
+      this.props.updateGame(this.props.tile, flagged);
     }
   }, {
     key: "render",
     value: function render() {
       var tileImg;
+      var tileCss;
 
       if (this.props.tile.explored) {
         if (this.props.tile.bombed) {
-          tileImg = "\u1F4A3";
+          tileImg = "\uD83D\uDCA3";
         } else {
           if (this.props.tile.adjacentBombCount() > 0) {
             tileImg = this.props.tile.adjacentBombCount();
@@ -312,16 +351,20 @@ var Tile = /*#__PURE__*/function (_React$Component) {
             tileImg = "";
           }
         }
+
+        tileCss = "explored";
       } else {
         if (this.props.tile.flagged) {
           tileImg = "\u2691";
         } else {
           tileImg = "";
         }
+
+        tileCss = "notExplored";
       }
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "tile",
+        className: tileCss,
         onClick: this.handleClick
       }, tileImg);
     }

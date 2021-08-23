@@ -9,18 +9,54 @@ class Game extends React.Component {
             board: new Minesweeper.Board(9, 5)
         }
         this.updateGame = this.updateGame.bind(this);
+        this.restartGame = this.restartGame.bind(this);
     }
 
-    updateGame(){
+    updateGame(tile, flagged){
+        if (flagged){
+            tile.toggleFlag();
+        }else{
+            tile.explore();
+        }
+        this.setState({board: this.state.board})
+    }   
 
+    restartGame(){
+        this.setState({board: new Minesweeper.Board(9, 5) })
     }
 
     render(){
-        return(
-            <Board board={this.state.board} updateGame={this.updateGame}/>
+        if (this.state.board.won()){
+            return(
+                <> 
+                    <Board board={this.state.board} updateGame={this.updateGame}/>
+                    <div className = "modal">
+                        <p>You won!</p>
+                        <button onClick={this.restartGame}> Play Again </button>
+                    </div>
+                </>
 
-        );
+            )     
+        } else if (this.state.board.lost()){
+            return (
+                <> 
+                    <Board board={this.state.board} updateGame={this.updateGame}/>
+                    <div className = "modal">
+                        <p>You Lost!</p>
+                        <button onClick={this.restartGame}> Play Again </button>
+                    </div>
+                </>
+            )
+        } else {
+            return (
+                <Board board={this.state.board} updateGame={this.updateGame}/>
+                )
+        }
+    
     }
+
+
+
 }
 
 export default Game;
