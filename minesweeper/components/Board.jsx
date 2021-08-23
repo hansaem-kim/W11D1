@@ -1,4 +1,5 @@
 import React from "react";
+import Tile from "./Tile";
 
 class Board extends React.Component {
     constructor(props){
@@ -6,22 +7,34 @@ class Board extends React.Component {
 
     }
     
-    // render(){
-    //     const grid = this.props.board.grid;
-    //     grid.map(row, xindex){
-    //         return (<div>{row}
-    //             {row.map(tile, yindex)}{
-    //                 <Tile tile={tile}></Tile>
-    //             }
-    //         </div>);
-    //     }
+    render(){
+        const grid = this.props.board.grid
+        let tiles = grid.map((row, xindex) => {
+                return ( <div key = {` row + ${xindex} `}>
+                    
+                    {row.map((tile, yindex)=>{
+                    return ( 
+                        <Tile 
+                        updateGame = {this.props.updateGame}
+                        tile={tile}
+                        key={`${xindex} + ${yindex}`} 
+                        />    
+                    )
+                    }
+                    ) }
+                    </div>
+                )
+        })
+        return (
+            <div id = 'Board'>
+                {tiles}
+            </div>
+        )
+  
+            
+    }
 
-
-
-        // return(
-
-        // )
 }
 
 
-export deafult Board;
+export default Board;

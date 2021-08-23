@@ -1,0 +1,14 @@
+#Board {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tile {
+    border: 1px inset white;
+    width: 30px;
+    height: 30px;
+    background-color: #d3d3d3;
+    /* border-style: inset; */
+    /* border-style: outset; */
+}
