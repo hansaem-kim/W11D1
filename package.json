@@ -1,0 +1,20 @@
+{
+  "name": "w11d1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hansaem-kim/W11D1.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hansaem-kim/W11D1/issues"
+  },
+  "homepage": "https://github.com/hansaem-kim/W11D1#readme"
+}
